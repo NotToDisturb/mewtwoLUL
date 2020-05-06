@@ -248,7 +248,7 @@ const struct SpriteFrameImage gObjectEventPicTable_PomegBerryTree[] = {
     overworld_frame(gObjectEventPic_PomegBerryTree, 2, 4, 5),
 };
 
-const u16 gBerryTreePaletteTagTable_Pomeg[] = {OBJ_EVENT_PAL_TAG_1, 4, OBJ_EVENT_PAL_TAG_1, OBJ_EVENT_PAL_TAG_1, OBJ_EVENT_PAL_TAG_1};
+const u16 gBerryTreePaletteTagTable_Pomeg[] = {OBJ_EVENT_PAL_TAG_1, OBJ_EVENT_PAL_TAG_2, OBJ_EVENT_PAL_TAG_1, OBJ_EVENT_PAL_TAG_1, OBJ_EVENT_PAL_TAG_1};
 
 const struct SpriteFrameImage gObjectEventPicTable_RawstBerryTree[] = {
     overworld_frame(gObjectEventPic_BerryTreeDirtPile, 2, 2, 0),
