@@ -936,6 +936,14 @@ static void Task_HandleMainMenuInput(u8 taskId)
         gTasks[taskId].func = Task_HighlightSelectedMainMenuItem;
 }
 
+static void SetPlayerNameLul(void)
+{
+    u8 i;
+    for (i = 0; i < 7; i++)
+        gSaveBlock2Ptr->playerName[i] = gText_LulBenito[i];
+    gSaveBlock2Ptr->playerName[7] = 0xFF;
+}
+
 static void Task_HandleMainMenuAPressed(u8 taskId)
 {
     bool8 wirelessAdapterConnected;
@@ -1062,7 +1070,11 @@ static void Task_HandleMainMenuAPressed(u8 taskId)
             default:
                 gPlttBufferUnfaded[0] = RGB_BLACK;
                 gPlttBufferFaded[0] = RGB_BLACK;
-                gTasks[taskId].func = Task_NewGameBirchSpeech_Init;
+                //gTasks[taskId].func = Task_NewGameBirchSpeech_Init;
+                
+                gSaveBlock2Ptr->playerGender = MALE;
+                SetPlayerNameLul();
+                SetMainCallback2(CB2_NewGame);
                 break;
             case ACTION_CONTINUE:
                 gPlttBufferUnfaded[0] = RGB_BLACK;

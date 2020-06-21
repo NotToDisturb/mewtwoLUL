@@ -46,6 +46,10 @@
 #include "mevent.h"
 #include "union_room_chat.h"
 
+#include "strings.h"
+#include "constants/flags.h"
+#include "constants/species.h"
+
 extern const u8 EventScript_ResetAllMapFlags[];
 
 // this file's functions
@@ -128,7 +132,7 @@ static void ClearFrontierRecord(void)
 
 static void WarpToTruck(void)
 {
-    SetWarpDestination(MAP_GROUP(INSIDE_OF_TRUCK), MAP_NUM(INSIDE_OF_TRUCK), -1, -1, -1);
+    SetWarpDestination(MAP_GROUP(FOREST), MAP_NUM(FOREST), -1, 12, 13);
     WarpIntoMap();
 }
 
@@ -163,7 +167,8 @@ void NewGameInitData(void)
     ClearMailData();
     gSaveBlock2Ptr->specialSaveWarpFlags = 0;
     gSaveBlock2Ptr->gcnLinkFlags = 0;
-    InitPlayerTrainerId();
+    //InitPlayerTrainerId();
+    SetTrainerId(42069, gSaveBlock2Ptr->playerTrainerId);
     PlayTimeCounter_Reset();
     ClearPokedexFlags();
     InitEventData();
@@ -206,6 +211,10 @@ void NewGameInitData(void)
     WipeTrainerNameRecords();
     ResetTrainerHillResults();
     ResetContestLinkResults();
+    
+    FlagSet(FLAG_SYS_B_DASH);
+    CreateObedientMon(&gPlayerParty[0], SPECIES_MAKUHITA, 15, 32, FALSE, FALSE, OT_ID_PLAYER_ID, 0);
+    SetMonData(&gPlayerParty[0], MON_DATA_NICKNAME, gText_LulCamela);
 }
 
 static void ResetMiniGamesResults(void)
