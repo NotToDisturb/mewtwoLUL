@@ -1558,7 +1558,13 @@
 	.2byte \item
 	.2byte \quantity
 	.endm
-
+    
+    @ Changes movement type in real time
+	.macro setobjectnewmovementtype localId:req, movementType:req
+	.byte 0xe3
+    .2byte \localId
+	.byte \movementType
+	.endm
 
 @ Supplementary
 

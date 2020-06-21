@@ -59,6 +59,7 @@
 #define MAP_UNDERWATER5      (54 | (0 << 8))
 #define MAP_UNDERWATER6      (55 | (0 << 8))
 #define MAP_UNDERWATER7      (56 | (0 << 8))
+#define MAP_FOREST           (57 | (0 << 8))
 
 // Map Group 1
 #define MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F    (0 | (1 << 8))

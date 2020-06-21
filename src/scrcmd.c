@@ -2299,3 +2299,15 @@ bool8 ScrCmd_warpsootopolislegend(struct ScriptContext *ctx)
     ResetInitialPlayerAvatarState();
     return TRUE;
 }
+
+bool8 ScrCmd_setobjectnewmovementtype(struct ScriptContext *ctx)
+{
+    u16 localId = VarGet(ScriptReadHalfword(ctx));
+    u8 movementType = ScriptReadByte(ctx);
+    
+    struct ObjectEvent *objectEvent = &gObjectEvents[GetObjectEventIdByLocalId(localId)];
+    
+    ObjectEventClearHeldMovementIfFinished(objectEvent);
+    SetTrainerMovementType(objectEvent, movementType);
+    ScriptMovement_UnfreezeObjectEvents();
+}

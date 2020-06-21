@@ -1,0 +1,198 @@
+const PLAYER = OBJ_EVENT_ID_PLAYER
+const CHILD_1 = 1
+const CHILD_2 = 2
+const MEWTWO = 3
+
+mapscripts Forest_MapScripts {
+    MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE [
+        VAR_FOREST_STATE, 0 {
+            hideobjectat(PLAYER, MAP_FOREST)
+            setvar(VAR_FOREST_STATE, 1)
+        }
+        VAR_FOREST_STATE, 2{
+            removeobject(CHILD_1, MAP_FOREST)
+            removeobject(CHILD_2, MAP_FOREST)
+            turnobject(PLAYER, DIR_EAST)
+            setvar(VAR_FOREST_STATE, 3)
+        }
+    ]
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_FOREST_STATE, 1: Forest_ChildrenRun
+        VAR_FOREST_STATE, 3: Forest_PlayerSequence
+    ]
+}
+
+script Forest_ChildrenRun {
+    applymovement(CHILD_1, ObjectGetAttentionLeft)
+    waitmovement(CHILD_1)
+    msgbox("{COLOR GREEN}Johnny: {COLOR DARK_GREY}¡Jajaja! ¡No nos vas a pillar!", MSGBOX_DEFAULT)
+    closemessage
+    applymovement(CHILD_2, ObjectGetAttentionLeft)
+    waitmovement(CHILD_2)
+    msgbox("{COLOR GREEN}María: {COLOR DARK_GREY}¡Eso es! ¡Corre, corre!", MSGBOX_DEFAULT)
+    closemessage
+    applymovement(CHILD_1, Child1RunRight)
+    applymovement(PLAYER, CameraRunRight)
+    applymovement(CHILD_2, Child2RunRight)
+    waitmovement(CHILD_1)
+    delay(16)
+    turnobject(CHILD_1, DIR_NORTH)
+    delay(32)
+    turnobject(CHILD_2, DIR_SOUTH)
+    delay(64)
+    turnobject(CHILD_1, DIR_SOUTH)
+    delay(24)
+    turnobject(CHILD_2, DIR_NORTH)
+    applymovement(CHILD_1, Common_Movement_QuestionMark)
+    delay(16)
+    msgbox("{COLOR GREEN}Johnny: {COLOR DARK_GREY}Oh no, ¿hacia donde vamos?", MSGBOX_DEFAULT)
+    random(2)
+    if(var(VAR_RESULT) == 0){
+        applymovement(CHILD_2, ObjectDecideUp)
+        msgbox("{COLOR GREEN}María: {COLOR DARK_GREY}¡Por aquí arriba!", MSGBOX_DEFAULT)
+        closemessage
+        delay(8)
+        turnobject(CHILD_1, DIR_NORTH)
+    } else {
+        applymovement(CHILD_2, ObjectDecideDown)
+        msgbox("{COLOR GREEN}María: {COLOR DARK_GREY}¡Por aquí abajo!", MSGBOX_DEFAULT)
+        closemessage
+    }
+    delay(16)
+    msgbox("{COLOR GREEN}Johnny: {COLOR DARK_GREY}¡Okey, vamos!", MSGBOX_DEFAULT)
+    closemessage
+    delay(16)
+    if(var(VAR_RESULT) == 0){
+        applymovement(CHILD_1, ChildrenRunUp)
+        applymovement(CHILD_2, ChildrenRunUp)
+        waitmovement(CHILD_2)
+    } else {
+        applymovement(CHILD_1, ChildrenRunDown)
+        applymovement(CHILD_2, ChildrenRunDown)
+        waitmovement(CHILD_1)
+    }
+    setvar(VAR_FOREST_STATE, 2)
+    warpsilent(MAP_FOREST, -1, 8, 13)
+    end
+}
+
+movement ObjectGetAttentionLeft {
+    jump_in_place_left * 2
+    delay_16
+}
+
+movement Child1RunRight {
+    walk_fast_right * 18
+}
+
+movement CameraRunRight {
+    walk_fast_right * 16
+    walk_right
+}
+
+movement Child2RunRight {
+    walk_fast_right * 15
+    walk_slow_right
+}
+
+movement ObjectDecideUp {
+    jump_in_place_up
+}
+
+movement ObjectDecideDown {
+    jump_in_place_down
+}
+
+movement ChildrenRunDown {
+    walk_fast_down * 7
+}
+
+movement ChildrenRunUp{
+    walk_fast_up * 9
+}
+
+script Forest_PlayerSequence {
+    msgbox("{COLOR BLUE}Benito: {COLOR DARK_GREY}¡Chicos, no corráis tanto!", MSGBOX_DEFAULT)
+    closemessage
+    applymovement(PLAYER, PlayerStartFreakOut)
+    waitmovement(PLAYER)
+    applymovement(PLAYER, PlayerTryCalmDown)
+    msgbox("{COLOR BLUE}Benito: {COLOR DARK_GREY}Lo digo en serio. \nEsperadme por favor.", MSGBOX_DEFAULT)
+    closemessage
+    waitmovement(PLAYER)
+    delay(24)
+    turnobject(PLAYER, DIR_WEST)
+    delay(32)
+    turnobject(PLAYER, DIR_EAST)
+    delay(24)
+    msgbox("{COLOR BLUE}Benito: {COLOR DARK_GREY}...\pNo puedo quedarme tan atrás. \nVenga, tengo que alcanzarles.", MSGBOX_DEFAULT)
+    closemessage
+    setvar(VAR_FOREST_STATE, 4)
+    end
+}
+
+movement PlayerStartFreakOut {
+    walk_right * 6
+}
+
+movement PlayerTryCalmDown {
+    walk_slow_right * 3
+}
+
+script Forest_NotThatWay {
+    applymovement(PLAYER, Common_Movement_ExclamationMark)
+    msgbox("{COLOR BLUE}Benito: {COLOR DARK_GREY}¡María y Johnny no fueron \npor aquí!", MSGBOX_DEFAULT)
+    closemessage
+    delay(16)
+    applymovement(PLAYER, MoveToRight)
+    waitmovement(PLAYER)
+    end
+}
+
+movement MoveToRight {
+    walk_right
+}
+
+script Forest_MewtwoAppearsDown {
+    showobjectat(MEWTWO, MAP_FOREST)
+    playmoncry(SPECIES_MEWTWO, 2)
+    fadeoutbgm(0)
+    delay(16)
+    applymovement(MEWTWO, MewtwoPopInDown)
+    delay(32)
+    
+    turnobject(PLAYER, DIR_EAST)
+    getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
+    subvar(VAR_TEMP_0, 28)
+    call(Forest_PlayerShouldFaceMewtwo)
+    applymovement(PLAYER, Common_Movement_ExclamationMark)
+    waitmovement(MEWTWO)
+    while(var(VAR_TEMP_0) < 5) {
+        applymovement(MEWTWO, MewtwoHeadToPlayer)
+        waitmovement(MEWTWO)
+        addvar(VAR_TEMP_0, 1)
+        call(Forest_PlayerShouldFaceMewtwo)
+    }
+    turnobject(MEWTWO, DIR_SOUTH)
+    setobjectnewmovementtype(MEWTWO, MOVEMENT_TYPE_WALK_IN_PLACE_DOWN)
+    end
+}
+
+movement MewtwoPopInDown {
+    walk_down
+    walk_left
+    walk_down * 2
+    jump_2_left
+    walk_left
+}
+
+movement MewtwoHeadToPlayer {
+    walk_left
+}
+
+script Forest_PlayerShouldFaceMewtwo {
+    if(var(VAR_TEMP_0) > 2){
+        turnobject(PLAYER, DIR_NORTH)
+    }
+    return
+}
