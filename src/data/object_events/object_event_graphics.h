@@ -360,3 +360,14 @@ const u32 gObjectEventPic_Lugia[] = INCBIN_U32("graphics/object_events/pics/poke
 const u16 gObjectEventPalette32[] = INCBIN_U16("graphics/object_events/palettes/32.gbapal");
 const u32 gObjectEventPic_HoOh[] = INCBIN_U32("graphics/object_events/pics/pokemon/ho_oh.4bpp");
 const u16 gObjectEventPalette31[] = INCBIN_U16("graphics/object_events/palettes/31.gbapal");
+
+const u16 gObjectEventPaletteLulPlayer[] = INCBIN_U16("graphics/object_events/palettes/lul_player.gbapal");
+const u32 gObjectEventPic_LulChild1[] = INCBIN_U32("graphics/object_events/pics/people/lul_child_1.4bpp");
+const u32 gObjectEventPic_LulChild2[] = INCBIN_U32("graphics/object_events/pics/people/lul_child_2.4bpp");
+const u16 gObjectEventPaletteLulChildren[] = INCBIN_U16("graphics/object_events/palettes/lul_children.gbapal");
+const u32 gObjectEventPic_LulMewtwo[] = INCBIN_U32("graphics/object_events/pics/pokemon/lul_mewtwo.4bpp");
+const u16 gObjectEventPaletteLulMewtwo[] = INCBIN_U16("graphics/object_events/palettes/lul_mewtwo.gbapal");
+const u32 gObjectEventPic_LulMother[] = INCBIN_U32("graphics/object_events/pics/people/lul_mother.4bpp");
+const u16 gObjectEventPaletteLulMother[] = INCBIN_U16("graphics/object_events/palettes/lul_mother.gbapal");
+const u32 gObjectEventPic_LulFather[] = INCBIN_U32("graphics/object_events/pics/people/lul_father.4bpp");
+const u16 gObjectEventPaletteLulFather[] = INCBIN_U16("graphics/object_events/palettes/lul_father.gbapal");

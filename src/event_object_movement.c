@@ -101,7 +101,6 @@ static void ApplyLevitateMovement(u8);
 static bool8 MovementType_Disguise_Callback(struct ObjectEvent *, struct Sprite *);
 static bool8 MovementType_Hidden_Callback(struct ObjectEvent *, struct Sprite *);
 static void CreateReflectionEffectSprites(void);
-static u8 GetObjectEventIdByLocalId(u8);
 static u8 GetObjectEventIdByLocalIdAndMapInternal(u8, u8, u8);
 static bool8 GetAvailableObjectEventId(u16, u8, u8, u8 *);
 static void SetObjectEventDynamicGraphicsId(struct ObjectEvent *);
@@ -428,15 +427,20 @@ const u8 gInitialMovementTypeFacingDirections[] = {
 #define OBJ_EVENT_PAL_TAG_32 0x1121
 #define OBJ_EVENT_PAL_TAG_33 0x1122
 #define OBJ_EVENT_PAL_TAG_34 0x1123
+#define OBJ_EVENT_PAL_TAG_LUL_PLAYER    0x1124
+#define OBJ_EVENT_PAL_TAG_LUL_CHILDREN  0x1125
+#define OBJ_EVENT_PAL_TAG_LUL_MEWTWO    0x1126
+#define OBJ_EVENT_PAL_TAG_LUL_MOTHER    0x1127
+#define OBJ_EVENT_PAL_TAG_LUL_FATHER    0x1128
 #define OBJ_EVENT_PAL_TAG_NONE 0x11FF
 
+#include "data/object_events/object_event_graphics_info_pointers.h"
 #include "data/field_effects/field_effect_object_template_pointers.h"
 #include "data/object_events/object_event_pic_tables.h"
 #include "data/object_events/object_event_anims.h"
 #include "data/object_events/base_oam.h"
 #include "data/object_events/object_event_subsprites.h"
 #include "data/object_events/object_event_graphics_info.h"
-#include "data/object_events/object_event_graphics_info_pointers.h"
 
 const struct SpritePalette sObjectEventSpritePalettes[] = {
     {gObjectEventPalette0,  OBJ_EVENT_PAL_TAG_0},
@@ -474,6 +478,11 @@ const struct SpritePalette sObjectEventSpritePalettes[] = {
     {gObjectEventPalette32, OBJ_EVENT_PAL_TAG_32},
     {gObjectEventPalette33, OBJ_EVENT_PAL_TAG_33},
     {gObjectEventPalette34, OBJ_EVENT_PAL_TAG_34},
+    {gObjectEventPaletteLulPlayer, OBJ_EVENT_PAL_TAG_LUL_PLAYER},
+    {gObjectEventPaletteLulChildren, OBJ_EVENT_PAL_TAG_LUL_CHILDREN},
+    {gObjectEventPaletteLulMewtwo, OBJ_EVENT_PAL_TAG_LUL_MEWTWO},
+    {gObjectEventPaletteLulMother, OBJ_EVENT_PAL_TAG_LUL_MOTHER},
+    {gObjectEventPaletteLulFather, OBJ_EVENT_PAL_TAG_LUL_FATHER},
     {NULL,                  0x0000},
 };
 
@@ -1003,7 +1012,7 @@ static u8 GetObjectEventIdByLocalIdAndMapInternal(u8 localId, u8 mapNum, u8 mapG
     return OBJECT_EVENTS_COUNT;
 }
 
-static u8 GetObjectEventIdByLocalId(u8 localId)
+u8 GetObjectEventIdByLocalId(u8 localId)
 {
     u8 i;
     for (i = 0; i < OBJECT_EVENTS_COUNT; i++)
