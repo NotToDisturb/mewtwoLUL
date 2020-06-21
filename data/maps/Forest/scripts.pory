@@ -143,7 +143,7 @@ script Forest_NotThatWay {
     applymovement(PLAYER, Common_Movement_ExclamationMark)
     msgbox("{COLOR BLUE}Benito: {COLOR DARK_GREY}¡María y Johnny no fueron \npor aquí!", MSGBOX_DEFAULT)
     closemessage
-    delay(16)
+    delay(4)
     applymovement(PLAYER, MoveToRight)
     waitmovement(PLAYER)
     end
@@ -195,4 +195,14 @@ script Forest_PlayerShouldFaceMewtwo {
         turnobject(PLAYER, DIR_NORTH)
     }
     return
+}
+
+script Forest_MewtwoAppearsUp {
+    getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
+    addvar(VAR_TEMP_1, 2)
+    setobjectxy(MEWTWO, VAR_TEMP_0, VAR_TEMP_1)
+    showobjectat(MEWTWO, MAP_FOREST)
+    turnobject(MEWTWO, DIR_NORTH)
+    setobjectnewmovementtype(MEWTWO, MOVEMENT_TYPE_WALK_IN_PLACE_UP)
+    end
 }

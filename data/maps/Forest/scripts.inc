@@ -221,7 +221,7 @@ Forest_NotThatWay::
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_ExclamationMark
 	msgbox Forest_NotThatWay_Text_0, MSGBOX_DEFAULT
 	closemessage
-	delay 16
+	delay 4
 	applymovement OBJ_EVENT_ID_PLAYER, MoveToRight
 	waitmovement OBJ_EVENT_ID_PLAYER
 	end
@@ -281,6 +281,16 @@ Forest_PlayerShouldFaceMewtwo_1:
 Forest_PlayerShouldFaceMewtwo_2:
 	turnobject OBJ_EVENT_ID_PLAYER, DIR_NORTH
 	goto Forest_PlayerShouldFaceMewtwo_1
+
+
+Forest_MewtwoAppearsUp::
+	getplayerxy VAR_TEMP_0, VAR_TEMP_1
+	addvar VAR_TEMP_1, 2
+	setobjectxy 3, VAR_TEMP_0, VAR_TEMP_1
+	showobjectat 3, MAP_FOREST
+	turnobject 3, DIR_NORTH
+	setobjectnewmovementtype 3, MOVEMENT_TYPE_WALK_IN_PLACE_UP
+	end
 
 
 Forest_ChildrenRun_Text_0:
