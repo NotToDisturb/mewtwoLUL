@@ -4420,6 +4420,16 @@
       "secondary_tileset": "gTileset_Petalburg",
       "border_filepath": "data/layouts/Forest/border.bin",
       "blockdata_filepath": "data/layouts/Forest/map.bin"
+    },
+    {
+      "id": "LAYOUT_FOREST_SIDE",
+      "name": "ForestSide_Layout",
+      "width": 24,
+      "height": 37,
+      "primary_tileset": "gTileset_Outside",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/ForestSide/border.bin",
+      "blockdata_filepath": "data/layouts/ForestSide/map.bin"
     }
   ]
 }

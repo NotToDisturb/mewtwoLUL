@@ -80,8 +80,8 @@ Forest_ChildrenRun_2:
 	goto Forest_ChildrenRun_1
 
 Forest_ChildrenRun_6:
-	applymovement 1, ChildrenRunUp
-	applymovement 2, ChildrenRunUp
+	applymovement 1, Child1RunUp
+	applymovement 2, Child2RunUp
 	waitmovement 2
 	goto Forest_ChildrenRun_5
 
@@ -170,7 +170,22 @@ ChildrenRunDown:
 	walk_fast_down
 	step_end
 
-ChildrenRunUp:
+Child1RunUp:
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_right
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	step_end
+
+Child2RunUp:
+	walk_fast_right
+	walk_fast_right
 	walk_fast_up
 	walk_fast_up
 	walk_fast_up
@@ -233,8 +248,9 @@ MoveToRight:
 
 Forest_MewtwoAppearsDown::
 	showobjectat 3, MAP_FOREST
+	fadenewbgm MUS_NONE
+	delay 64
 	playmoncry SPECIES_MEWTWO, 2
-	fadeoutbgm 0
 	delay 16
 	applymovement 3, MewtwoPopInDown
 	delay 32
@@ -249,6 +265,7 @@ Forest_MewtwoAppearsDown_2:
 	goto_if_lt Forest_MewtwoAppearsDown_3
 	turnobject 3, DIR_SOUTH
 	setobjectnewmovementtype 3, MOVEMENT_TYPE_WALK_IN_PLACE_DOWN
+	call Forest_ShowChildren
 	end
 
 Forest_MewtwoAppearsDown_3:
@@ -288,9 +305,20 @@ Forest_MewtwoAppearsUp::
 	addvar VAR_TEMP_1, 2
 	setobjectxy 3, VAR_TEMP_0, VAR_TEMP_1
 	showobjectat 3, MAP_FOREST
-	turnobject 3, DIR_NORTH
-	setobjectnewmovementtype 3, MOVEMENT_TYPE_WALK_IN_PLACE_UP
 	end
+
+
+Forest_ShowChildren::
+	setvar VAR_FOREST_STATE, 4
+	compare VAR_RESULT, 0
+	goto_if_eq Forest_ShowChildren_2
+	warpsilent MAP_FOREST_SIDE, -1, 12, 6
+Forest_ShowChildren_1:
+	return
+
+Forest_ShowChildren_2:
+	warpsilent MAP_FOREST_SIDE, -1, 13, 25
+	goto Forest_ShowChildren_1
 
 
 Forest_ChildrenRun_Text_0:

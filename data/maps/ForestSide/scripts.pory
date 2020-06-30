@@ -1,0 +1,86 @@
+const PLAYER = OBJ_EVENT_ID_PLAYER
+const CHILD_1_UP = 3
+const CHILD_2_UP = 4
+const CHILD_1_DOWN = 1
+const CHILD_2_DOWN = 2
+
+
+mapscripts ForestSide_MapScripts {
+    MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE [
+        VAR_FOREST_STATE, 4 {
+            hideobjectat(PLAYER, MAP_FOREST_SIDE)
+            if(var(VAR_RESULT) == 0){
+                setvar(VAR_FOREST_STATE, 5)
+            }
+            else{
+                setvar(VAR_FOREST_STATE, 6)
+            }
+        }
+    ]
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_FOREST_STATE, 5: ForestSide_NoticeUp
+        VAR_FOREST_STATE, 6: ForestSide_NoticeDown
+    ]
+}
+
+script ForestSide_NoticeUp{
+    turnobject(CHILD_1_UP, DIR_SOUTH)
+    applymovement(CHILD_1_UP, Common_Movement_ExclamationMark)
+    turnobject(CHILD_2_UP, DIR_SOUTH)
+    applymovement(CHILD_2_UP, Common_Movement_ExclamationMark)
+    delay(32)
+    msgbox("{COLOR GREEN}Johnny: {COLOR DARK_GREY}¿Has oído eso?", MSGBOX_DEFAULT)
+    closemessage
+    delay(16)
+    turnobject(CHILD_2_UP, DIR_NORTH)
+    msgbox("{COLOR GREEN}María: {COLOR DARK_GREY}No me ha gustado nada ese grito.\nCreo que Benito tiene problemas.", MSGBOX_DEFAULT)
+    closemessage
+    delay(16)
+    msgbox("{COLOR GREEN}Johnny: {COLOR DARK_GREY}Creo que deberíamos ir a ver.\nY rápido.", MSGBOX_DEFAULT)
+    closemessage
+    applymovement(CHILD_1_UP, Child1UpRunDown)
+    applymovement(CHILD_2_UP, Child2UpRunDown)
+    waitmovement(CHILD_1_UP)
+    setvar(VAR_FOREST_STATE, 7)
+    end
+}
+
+movement Child1UpRunDown{
+    walk_fast_down
+    walk_fast_left * 2
+    walk_fast_down * 6
+}
+
+movement Child2UpRunDown{
+    walk_fast_down * 5
+}
+
+script ForestSide_NoticeDown{
+    turnobject(CHILD_1_DOWN, DIR_NORTH)
+    applymovement(CHILD_1_DOWN, Common_Movement_ExclamationMark)
+    turnobject(CHILD_2_DOWN, DIR_NORTH)
+    applymovement(CHILD_2_DOWN, Common_Movement_ExclamationMark)
+    delay(32)
+    msgbox("{COLOR GREEN}María: {COLOR DARK_GREY}Johnny, esa era la voz de Benito.", MSGBOX_DEFAULT)
+    closemessage
+    delay(16)
+    turnobject(CHILD_1_DOWN, DIR_SOUTH)
+    msgbox("{COLOR GREEN}Johnny: {COLOR DARK_GREY}No cabe duda...\nNo sonaba nada bien.", MSGBOX_DEFAULT)
+    closemessage
+    delay(16)
+    msgbox("{COLOR GREEN}María: {COLOR DARK_GREY}Venga, vamos a ver si se\nha hecho daño.", MSGBOX_DEFAULT)
+    closemessage
+    applymovement(CHILD_1_DOWN, Child1DownRunUp)
+    applymovement(CHILD_2_DOWN, Child2DownRunUp)
+    waitmovement(CHILD_2_DOWN)
+    setvar(VAR_FOREST_STATE, 7)
+    end
+}
+
+movement Child1DownRunUp{
+    walk_fast_up * 5
+}
+
+movement Child2DownRunUp{
+    walk_fast_up * 7
+}

@@ -1,7 +1,9 @@
 const PLAYER = OBJ_EVENT_ID_PLAYER
 const CHILD_1 = 1
 const CHILD_2 = 2
-const MEWTWO = 3
+const MEWTWO_DOWN = 3
+const MEWTWO_UP = 5
+const STONE_DOWN = 4
 
 mapscripts Forest_MapScripts {
     MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE [
@@ -63,8 +65,8 @@ script Forest_ChildrenRun {
     closemessage
     delay(16)
     if(var(VAR_RESULT) == 0){
-        applymovement(CHILD_1, ChildrenRunUp)
-        applymovement(CHILD_2, ChildrenRunUp)
+        applymovement(CHILD_1, Child1RunUp)
+        applymovement(CHILD_2, Child2RunUp)
         waitmovement(CHILD_2)
     } else {
         applymovement(CHILD_1, ChildrenRunDown)
@@ -107,7 +109,14 @@ movement ChildrenRunDown {
     walk_fast_down * 7
 }
 
-movement ChildrenRunUp{
+movement Child1RunUp{
+    walk_fast_up * 3
+    walk_fast_right
+    walk_fast_up * 6
+}
+
+movement Child2RunUp{
+    walk_fast_right * 2
     walk_fast_up * 9
 }
 
@@ -154,11 +163,12 @@ movement MoveToRight {
 }
 
 script Forest_MewtwoAppearsDown {
-    showobjectat(MEWTWO, MAP_FOREST)
+    showobjectat(MEWTWO_DOWN, MAP_FOREST)
+    fadenewbgm(MUS_NONE)
+    delay(64)
     playmoncry(SPECIES_MEWTWO, 2)
-    fadeoutbgm(0)
     delay(16)
-    applymovement(MEWTWO, MewtwoPopInDown)
+    applymovement(MEWTWO_DOWN, MewtwoPopInDown)
     delay(32)
     
     turnobject(PLAYER, DIR_EAST)
@@ -166,15 +176,16 @@ script Forest_MewtwoAppearsDown {
     subvar(VAR_TEMP_0, 28)
     call(Forest_PlayerShouldFaceMewtwo)
     applymovement(PLAYER, Common_Movement_ExclamationMark)
-    waitmovement(MEWTWO)
+    waitmovement(MEWTWO_DOWN)
     while(var(VAR_TEMP_0) < 5) {
-        applymovement(MEWTWO, MewtwoHeadToPlayer)
-        waitmovement(MEWTWO)
+        applymovement(MEWTWO_DOWN, MewtwoHeadToPlayer)
+        waitmovement(MEWTWO_DOWN)
         addvar(VAR_TEMP_0, 1)
         call(Forest_PlayerShouldFaceMewtwo)
     }
-    turnobject(MEWTWO, DIR_SOUTH)
-    setobjectnewmovementtype(MEWTWO, MOVEMENT_TYPE_WALK_IN_PLACE_DOWN)
+    turnobject(MEWTWO_DOWN, DIR_SOUTH)
+    setobjectnewmovementtype(MEWTWO_DOWN, MOVEMENT_TYPE_WALK_IN_PLACE_DOWN)
+    call(Forest_ShowChildren)
     end
 }
 
@@ -200,9 +211,18 @@ script Forest_PlayerShouldFaceMewtwo {
 script Forest_MewtwoAppearsUp {
     getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
     addvar(VAR_TEMP_1, 2)
-    setobjectxy(MEWTWO, VAR_TEMP_0, VAR_TEMP_1)
-    showobjectat(MEWTWO, MAP_FOREST)
-    turnobject(MEWTWO, DIR_NORTH)
-    setobjectnewmovementtype(MEWTWO, MOVEMENT_TYPE_WALK_IN_PLACE_UP)
+    setobjectxy(MEWTWO_DOWN, VAR_TEMP_0, VAR_TEMP_1)
+    showobjectat(MEWTWO_DOWN, MAP_FOREST)
     end
+}
+
+script Forest_ShowChildren {
+    setvar(VAR_FOREST_STATE, 4)
+    if(var(VAR_RESULT) == 0){
+        warpsilent(MAP_FOREST_SIDE, -1, 13, 25)
+    }
+    else{
+        warpsilent(MAP_FOREST_SIDE, -1, 12, 6)
+    }
+    return
 }

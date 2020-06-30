@@ -246,6 +246,7 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_UnusedMauvilleOldM
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_UnusedMauvilleOldMan2;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LulChild1;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LulChild2;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LulChildStone;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LulMewtwo;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LulMother;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LulFather;
@@ -493,6 +494,7 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     
     [OBJ_EVENT_GFX_LUL_CHILD_1] =              &gObjectEventGraphicsInfo_LulChild1,
     [OBJ_EVENT_GFX_LUL_CHILD_2] =              &gObjectEventGraphicsInfo_LulChild2,
+    [OBJ_EVENT_GFX_LUL_CHILD_STONE] =          &gObjectEventGraphicsInfo_LulChildStone,
     [OBJ_EVENT_GFX_LUL_MEWTWO] =               &gObjectEventGraphicsInfo_LulMewtwo,
     [OBJ_EVENT_GFX_LUL_MOTHER] =               &gObjectEventGraphicsInfo_LulMother,
     [OBJ_EVENT_GFX_LUL_FATHER] =               &gObjectEventGraphicsInfo_LulFather,

@@ -242,11 +242,12 @@
 #define OBJ_EVENT_GFX_HOOH                       238
 #define OBJ_EVENT_GFX_LUL_CHILD_1                239
 #define OBJ_EVENT_GFX_LUL_CHILD_2                240
-#define OBJ_EVENT_GFX_LUL_MEWTWO                 241
-#define OBJ_EVENT_GFX_LUL_MOTHER                 242
-#define OBJ_EVENT_GFX_LUL_FATHER                 243
+#define OBJ_EVENT_GFX_LUL_CHILD_STONE            241
+#define OBJ_EVENT_GFX_LUL_MEWTWO                 242
+#define OBJ_EVENT_GFX_LUL_MOTHER                 243
+#define OBJ_EVENT_GFX_LUL_FATHER                 244
 
-#define NUM_OBJ_EVENT_GFX                        244
+#define NUM_OBJ_EVENT_GFX                        245
 
 
 // These are dynamic object gfx ids.
